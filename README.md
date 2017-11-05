@@ -9,3 +9,38 @@
 5.  未抢完的红包在（发红包的）24小时后自动退回。
 6.  用户可以查看自己的余额。
 7.  用户可以查看自己抢到的红包列表。
+
+
+## 接口
+1. 注册 POST: api/v1/user/register  
+    参数：
+     * username 用户名
+     * password 前端传md5后的密码
+     
+2. 登录 POST: api/v1/user/login  
+    参数：
+     * username 用户名
+     * password 前端传md5后的密码
+
+3. 获取余额 GET: api/v1/user/1/balance
+   参数:
+    * header: uid 和 token
+ 
+4. 创建红包 POST: api/v1/redpacket/dispatch
+    参数：
+    * uid 
+    * amount 
+    * num
+   
+5. 抓红包  POST: api/v1/redpacket/grab
+    参数：
+     * secret
+      
+6. 获取红包  GET: api/v1/redpacket/list?uid=1
+   参数：
+   * uid
+   
+
+## 目前还剩功能 
+ * 未抢完的红包在（发红包的）24小时后自动退回。
+ * 测试
