@@ -14,7 +14,7 @@ type RedpacketRetreiver struct {
 }
 
 func (r *RedpacketRetreiver) Insert(id uint,timeout int64)  {
-	timeout += 10
+	timeout += 30 //todo 测试用 30秒后回收
 	r.List.PushBack(RedpacketItem{id,timeout})
 }
 
