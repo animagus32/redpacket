@@ -13,7 +13,7 @@ import (
 	"fmt"
 )
 
-func Dispatch(res http.ResponseWriter,req *http.Request, db gorm.DB,tokenMapper utils.TokenMapper){
+func Dispatch(res http.ResponseWriter,req *http.Request, db gorm.DB,tokenMapper utils.TokenMapper,packetRetriever *utils.RedpacketRetreiver){
 	uid,_ := strconv.Atoi(req.PostFormValue("uid"))
 
 	if(!isAuthorized(req,tokenMapper) || !userCheck(req,uid)){
@@ -45,6 +45,10 @@ func Dispatch(res http.ResponseWriter,req *http.Request, db gorm.DB,tokenMapper 
 		mList[i].RedpacketId = redpacketM.Id
 		db.Create(&mList[i])
 	}
+
+	//packetRetriever.List = append(packetRetriever.List,utils.RedpacketItem{Id:redpacketM.Id,Timeout:redpacketM.CreatedAt.Unix()})
+	//fmt.Print(packetRetriever.List)
+	packetRetriever.Insert(redpacketM.Id,redpacketM.CreatedAt.Unix())
 
 	response := RedPacketDispatchResponse{}
 	response.Data.List = mList
