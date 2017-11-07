@@ -125,8 +125,14 @@ func getRandList(amount float64,num int) ([]float64,bool) {
 
 	left  := int(amount)
 	i := 0
+
+	thres := int(amount/3)
+
 	for i < num-1 {
 		r := rand.Intn(left)
+		if r > thres {
+			r = rand.Intn(thres)
+		}
 		//fmt.Printf(" %v ",r)
 		if r!= 0 {
 			if (left - r) >= num-i-1 {

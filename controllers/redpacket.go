@@ -14,8 +14,8 @@ import (
 )
 
 func Dispatch(res http.ResponseWriter,req *http.Request, db gorm.DB,tokenMapper utils.TokenMapper,packetRetriever *utils.RedpacketRetreiver){
-	uid,_ := strconv.Atoi(req.PostFormValue("uid"))
-
+	uid,_ := strconv.Atoi(req.FormValue("uid"))
+	//fmt.Printf("..3%s3..",req.FormValue("uid"))
 	if(!isAuthorized(req,tokenMapper) || !userCheck(req,uid)){
 		error(res,1,"Not authorized!")
 		return	;
@@ -86,7 +86,7 @@ func Grab(res http.ResponseWriter,req *http.Request, db gorm.DB,tokenMapper util
 		return;
 	}
 
-	//todo 肯定要加锁，不过没时间了啊:)
+	//todo 要加锁，不过没时间:)
 	db.Where("redpacket_id=?",redPacketM.Id).Where("user_id=?",0).First(&redpacketDetailM)
 	fmt.Printf("%v",redpacketDetailM)
 	if redpacketDetailM.Id == 0{
