@@ -100,7 +100,7 @@ func isAuthorized(req *http.Request,tokenMapper utils.TokenMapper) bool {
 	uid,_ := strconv.Atoi(req.Header.Get("uid"))
 
 	if t,ok := tokenMapper[uint(uid)];ok==false || t.Validate(token) == false{
-		return true;//todo 测试用
+		return false;
 	}
 	return true;
 }
